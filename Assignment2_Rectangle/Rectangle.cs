@@ -2,21 +2,16 @@
 
 namespace Assignment2
 {
-    /// Represents a rectangle with a length and width.
+    /// Assignment 2 a rectangle with a length and width.
     public class Rectangle
     {
         /// The length of the rectangle.
-
         private int length;
 
-
         /// The width of the rectangle.
-
         private int width;
 
-
         /// Initializes a new instance of the Rectangle class with a default length and width of 1.
-
         public Rectangle()
         {
             length = 1;
@@ -24,7 +19,6 @@ namespace Assignment2
         }
 
         /// Initializes a new instance of the Rectangle class with the specified length and width.
-
         /// <param name="length">The length of the rectangle.</param>
         /// <param name="width">The width of the rectangle.</param>
         public Rectangle(int length, int width)
@@ -35,23 +29,16 @@ namespace Assignment2
                 this.width = width;
             }
             else
-            {
+            {   /// <exception cref="ArgumentException">Thrown when either length or width is less than or equal to 0.</exception>
                 throw new ArgumentException("Length and width must be greater than 0.");
-                /// <exception cref="ArgumentException">Thrown when either length or width is less than or equal to 0.</exception>
-
             }
         }
-
-
+        
         /// Gets the length of the rectangle.
-
         public int GetLength()
         {
-            /// <returns>The length of the rectangle.</returns>
-
             return length;
         }
-
 
         /// Sets the length of the rectangle.
         /// <param name="length">The new length of the rectangle.</param>
@@ -63,23 +50,19 @@ namespace Assignment2
             }
             else
             {
-                throw new ArgumentException("Length must be greater than 0.");
                 /// <exception cref="ArgumentException">Thrown when length is less than or equal to 0.</exception>
-
+                throw new ArgumentException("Length must be greater than 0.");
             }
         }
-
 
         /// Gets the width of the rectangle.
         public int GetWidth()
         {
-            /// <returns>The width of the rectangle.</returns>
+            return width;   /// <returns>The width of the rectangle.</returns>
 
-            return width;
         }
 
         /// Sets the width of the rectangle.
-
         /// <param name="width">The new width of the rectangle.</param>
         public void SetWidth(int width)
         {
@@ -88,33 +71,41 @@ namespace Assignment2
                 this.width = width;
             }
             else
-            {
-                throw new ArgumentException("Width must be greater than 0.");
-                /// <exception cref="ArgumentException">Thrown when width is less than or equal to 0.</exception>
+            {         /// <exception cref="ArgumentException">Thrown when width is less than or equal to 0.</exception>
 
+                throw new ArgumentException("Width must be greater than 0.");
             }
         }
 
-
         /// Gets the perimeter of the rectangle.
-
         public int GetPerimeter()
         {
-            /// <returns>The perimeter of the rectangle.</returns>
+            // Calculate the perimeter
+            int perimeter = 2 * (length + width);
 
-            return 2 * (length + width);
+            // Ensure that the returned value is non-negative
+            if (perimeter < 0)
+            {
+                throw new InvalidOperationException("The perimeter cannot be negative.");
+            }
 
+            return perimeter;
         }
 
-
+  
         /// Gets the area of the rectangle.
-
-        public int GetArea()
-
+          public int GetArea()
         {
-            /// <returns>The area of the rectangle.</returns>
+            // Calculate the area
+            int area = length * width;
 
-            return length * width;
+            // Ensure that the returned value is non-negative
+            if (area < 0)
+            {
+                throw new InvalidOperationException("The area cannot be negative.");
+            }
+
+            return area;
         }
     }
 }
