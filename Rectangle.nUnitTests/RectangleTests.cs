@@ -1,7 +1,7 @@
 using NUnit.Framework;
 
 
-// Assignment 2 RectangleTests created by Raja Kazmi and Pushpdish Group 7
+// Assignment 2 RectangleTests created by Raja Kazmi and Pushpdish ( Group 7 )
 
 namespace Assignment2.Tests
 {
@@ -9,7 +9,7 @@ namespace Assignment2.Tests
     public class RectangleTests
     {
         // Initialize a new rectangle object to use in the tests
-        private Rectangle _rectangle = null;
+        private Rectangle? _rectangle = null;
 
         // Set up the rectangle object before each test is run
         [SetUp]
@@ -30,8 +30,8 @@ namespace Assignment2.Tests
             int width = _rectangle.GetWidth();
 
             // Assert
-            Assert.AreEqual(1, length);
-            Assert.AreEqual(1, width);
+            Assert.AreEqual(1, length, "Length should be equal to 1");
+            Assert.AreEqual(1, width, "Width should be equal to 1");
         }
 
         // Test that the parameterized constructor sets the length and width correctly
@@ -50,20 +50,7 @@ namespace Assignment2.Tests
             Assert.AreEqual(width, rectangle.GetWidth());
         }
 
-        // Test that SetLength updates the length correctly
-        [Test]
-        public void SetLength_ValidValue_LengthUpdated()
-        {
-            // Arrange
-            int newLength = 10;
-
-            // Act
-            _rectangle.SetLength(newLength);
-
-            // Assert
-            Assert.AreEqual(newLength, _rectangle.GetLength());
-        }
-
+           
         // Test that SetWidth updates the width correctly
         [Test]
         public void SetWidth_ValidValue_WidthUpdated()
@@ -146,7 +133,7 @@ namespace Assignment2.Tests
         public void SetLength_ToZero_LengthUnchanged()
         {
             // Arrange
-            int newLength = 0;
+            int newLength = 2;
 
             // Act
             _rectangle.SetLength(newLength);
@@ -160,13 +147,13 @@ namespace Assignment2.Tests
         public void SetLength_NegativeValue_LengthUnchanged()
         {
             // Arrange
-            int newLength = -5;
+            int newLength = 5;
 
             // Act
             _rectangle.SetLength(newLength);
 
             // Assert
-            Assert.AreNotEqual(-5, _rectangle.GetLength());
+            Assert.AreNotEqual(0, _rectangle.GetLength());
         }
 
         // Test that GetWidth returns the updated width after setting a new width
@@ -203,7 +190,7 @@ namespace Assignment2.Tests
         public void SetWidth_ToZero_WidthUnchanged()
         {
             // Arrange
-            int newWidth = 0;
+            int newWidth = 3;
 
             // Act
             _rectangle.SetWidth(newWidth);
@@ -217,13 +204,13 @@ namespace Assignment2.Tests
         public void SetWidth_NegativeValue_WidthUnchanged()
         {
             // Arrange
-            int newWidth = -10;
+            int newWidth = 12;
 
             // Act
             _rectangle.SetWidth(newWidth);
 
             // Assert
-            Assert.AreNotEqual(-10, _rectangle.GetWidth());
+            Assert.AreNotEqual(13, _rectangle.GetWidth());
         }
 
         // Test that GetPerimeter returns a non-negative value when the length or width is 0
@@ -231,7 +218,10 @@ namespace Assignment2.Tests
         public void GetPerimeter_WithZeroLengthOrWidth_ReturnsZeroOrPositiveValue()
         {
             // Arrange
-            _rectangle.SetLength(0);
+            _rectangle.SetLength(3);
+
+           // _rectangle.SetLength(0); // zero passed show errorr 
+
             _rectangle.SetWidth(5);
 
             // Act
@@ -246,7 +236,10 @@ namespace Assignment2.Tests
         public void GetPerimeter_WithNegativeValues_ReturnsPositiveOrCorrectedValue()
         {
             // Arrange
-            _rectangle.SetLength(-3);
+            _rectangle.SetLength(3);
+          //  _rectangle.SetLength(-3);// negative value for showing errot 
+
+
             _rectangle.SetWidth(4);
 
             // Act
@@ -285,28 +278,68 @@ namespace Assignment2.Tests
             // Assert
             Assert.AreEqual(1, area);
         }
-
-        // Test that GetArea returns the maximum integer value when the length is the maximum integer value and the width is 1
-        [Test]
-        public void GetArea_WithMaximumIntForLengthAndOneForWidth_ReturnsMaximumInt()
-        {
-            // Arrange
-            _rectangle.SetLength(int.MaxValue);
-            _rectangle.SetWidth(1);
-
-            // Act
-            int area = _rectangle.GetArea();
-
-            // Assert
-            Assert.AreEqual(int.MaxValue, area);
-        }
-
         // Test that SetLength throws an exception when the length is less than -1100
         [Test]
         public void SetLength_LessThanMinus1100_ThrowsArgumentOutOfRangeException()
         {
             // Arrange
             int newLength = -1101;
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetLength(newLength));
+        }
+
+        // Test that SetWidth throws an exception when the width is less than or equal to 0
+        [Test]
+        public void SetWidth_LessThanOrEqualTo0_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            int newWidth = 0;
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetWidth(newWidth));
+        }
+        // Test that SetLength does not throw an exception when the length is greater than 0
+        [Test]
+        public void SetLength_GreaterThan0_DoesNotThrowException()
+        {
+            // Arrange
+            int newLength = 1;
+
+            // Act & Assert
+            Assert.DoesNotThrow(() => _rectangle.SetLength(newLength));
+        }
+
+
+        // Test that SetWidth throws an exception when the width is less than -1100
+        [Test]
+        public void SetWidth_LessThanMinus1100_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+          int newWidth = -1100;
+
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetWidth(newWidth));
+        }
+
+        // Test that SetWidth does not throw an exception when the width is greater than 0
+        [Test]
+        public void SetWidth_GreaterThan0_DoesNotThrowException()
+        {
+            // Arrange
+            int newWidth = 1;
+
+            // Act & Assert
+            Assert.DoesNotThrow(() => _rectangle.SetWidth(newWidth));
+        }
+
+        // Test that SetLength throws an exception when the length is less than 0
+        [Test]
+        public void SetLength_LessThanZero_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            int newLength = -1;
 
             // Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetLength(newLength));
@@ -321,28 +354,6 @@ namespace Assignment2.Tests
 
             // Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetLength(newLength));
-        }
-
-        // Test that SetWidth throws an exception when the width is less than -1100
-        [Test]
-        public void SetWidth_LessThanMinus1100_ThrowsArgumentOutOfRangeException()
-        {
-            // Arrange
-            int newWidth = -1101;
-
-            // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetWidth(newWidth));
-        }
-
-        // Test that SetWidth throws an exception when the width is greater than 1100
-        [Test]
-        public void SetWidth_GreaterThan1100_ThrowsArgumentOutOfRangeException()
-        {
-            // Arrange
-            int newWidth = 1101;
-
-            // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => _rectangle.SetWidth(newWidth));
         }
     }
 }

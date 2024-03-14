@@ -33,25 +33,35 @@ namespace Assignment2
                 throw new ArgumentException("Length and width must be greater than 0.");
             }
         }
-        
+
         /// Gets the length of the rectangle.
         public int GetLength()
         {
             return length;
         }
 
-        /// Sets the length of the rectangle.
-        /// <param name="length">The new length of the rectangle.</param>
-        public void SetLength(int length)
+        public void SetLength(int newLength)
         {
-            if (length > 0)
+            // Check if the length is within the valid range
+            if (newLength < 0 || newLength > 1100)
             {
-                this.length = length;
+                throw new ArgumentOutOfRangeException(nameof(newLength), "The length must be between 0 and 1100.");
+            }
+
+            // Set the length
+            length = newLength;
+        }
+
+        public void SetWidth(int width)
+        {
+            if (width > 0 && width <= 1100)
+            {
+                this.width = width;
             }
             else
             {
-                /// <exception cref="ArgumentException">Thrown when length is less than or equal to 0.</exception>
-                throw new ArgumentException("Length must be greater than 0.");
+                /// <exception cref="ArgumentOutOfRangeException">Thrown when width is less than or equal to 0 or greater than 1100.</exception>
+                throw new ArgumentOutOfRangeException("Width must be greater than 0 and less than or equal to 1100.");
             }
         }
 
@@ -60,21 +70,6 @@ namespace Assignment2
         {
             return width;   /// <returns>The width of the rectangle.</returns>
 
-        }
-
-        /// Sets the width of the rectangle.
-        /// <param name="width">The new width of the rectangle.</param>
-        public void SetWidth(int width)
-        {
-            if (width > 0)
-            {
-                this.width = width;
-            }
-            else
-            {         /// <exception cref="ArgumentException">Thrown when width is less than or equal to 0.</exception>
-
-                throw new ArgumentException("Width must be greater than 0.");
-            }
         }
 
         /// Gets the perimeter of the rectangle.
@@ -92,9 +87,8 @@ namespace Assignment2
             return perimeter;
         }
 
-  
-        /// Gets the area of the rectangle.
-          public int GetArea()
+
+        public int GetArea()
         {
             // Calculate the area
             int area = length * width;
@@ -108,4 +102,4 @@ namespace Assignment2
             return area;
         }
     }
-}
+    }
