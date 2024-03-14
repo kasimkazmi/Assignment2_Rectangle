@@ -22,9 +22,7 @@ namespace Assignment2.Tests
         [Test]
         public void DefaultConstructor_LengthAndWidthSetToOne()
         {
-            // Arrange
-            // Nothing to arrange, the object is already set up in the Setup method
-
+          
             // Act
             int length = _rectangle.GetLength();
             int width = _rectangle.GetWidth();
